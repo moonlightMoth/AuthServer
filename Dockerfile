@@ -1,6 +1,6 @@
 FROM eclipse-temurin:17-jdk-jammy AS builder
 WORKDIR /app
-COPY * .
+COPY . .
 RUN apt update
 RUN yes | apt install maven
 RUN mvn clean compile package
