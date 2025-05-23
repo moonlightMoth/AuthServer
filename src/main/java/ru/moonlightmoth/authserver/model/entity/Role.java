@@ -2,5 +2,17 @@ package ru.moonlightmoth.authserver.model.entity;
 
 public enum Role
 {
-    ADMIN, USER
+    ADMIN, USER;
+
+    public static Role fromString(String s)
+    {
+        try
+        {
+            return Role.valueOf(s.toUpperCase());
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw new IllegalArgumentException("Unknown enum value: " + s, e);
+        }
+    }
 }

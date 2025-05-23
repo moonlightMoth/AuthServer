@@ -1,5 +1,6 @@
 package ru.moonlightmoth.authserver.service;
 
+import io.jsonwebtoken.Claims;
 import ru.moonlightmoth.authserver.model.JwtToken;
 import ru.moonlightmoth.authserver.model.entity.Role;
 import ru.moonlightmoth.authserver.model.entity.UserDetails;
@@ -14,7 +15,5 @@ public interface JwtService {
 
     boolean isTokenValid(JwtToken jwtToken);
 
-    Role extractRole(JwtToken jwtToken);
-
-    String extractLogin(JwtToken jwtToken);
+    Claims extractClaims(JwtToken jwtToken);
 }

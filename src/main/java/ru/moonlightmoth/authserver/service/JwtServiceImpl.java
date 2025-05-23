@@ -78,34 +78,36 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public Role extractRole(JwtToken jwtToken)
+    public Claims extractClaims(JwtToken jwtToken)
     {
         Jws<Claims> claimsJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(jwtToken.getToken());
 
         Claims claims = claimsJws.getPayload();
-        String role = claims.get("role", String.class);
 
-        if (role.equals("ADMIN"))
-            return Role.ADMIN;
+        verifyClaims(claims);
 
-        if (role.equals("USER"))
-            return Role.USER;
-
-        throw new InvalidUserException("User has no Role");
+        return claims;
     }
 
-    @Override
-    public String extractLogin(JwtToken jwtToken)
+    private void verifyClaims(Claims claims)
     {
-        Jws<Claims> claimsJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(jwtToken.getToken());
-
-        Claims claims = claimsJws.getPayload();
         String login = claims.get("login", String.class);
+        String name = claims.get("login", String.class);
+        String surname = claims.get("surname", String.class);
 
         if (login == null || login.isEmpty() || login.isBlank())
             throw new InvalidUserException("User has no login");
 
-        return login;
+        if (name == null || name.isEmpty() || name.isBlank())
+            throw new InvalidUserException("User has no name");
+
+        if (surname == null || surname.isEmpty() || surname.isBlank())
+            throw new InvalidUserException("User has no surname");
+
+        String role = claims.get("role", String.class);
+
+        if (!(role.equals("ADMIN") || role.equals("USER")))
+            throw new InvalidUserException("User has no Role");
     }
 
     private boolean verifyClaimsByLogin(Claims claims, String login)
