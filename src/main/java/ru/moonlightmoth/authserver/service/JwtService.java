@@ -15,4 +15,6 @@ public interface JwtService {
     boolean isTokenValid(JwtToken jwtToken);
 
     Role extractRole(JwtToken jwtToken);
+
+    String extractLogin(JwtToken jwtToken);
 }

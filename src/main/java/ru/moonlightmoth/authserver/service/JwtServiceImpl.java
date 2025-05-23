@@ -56,6 +56,7 @@ public class JwtServiceImpl implements JwtService {
         claims.put("surname", userDetails.getSurname());
         claims.put("role", userDetails.getRole());
         claims.put("login", userDetails.getLogin());
+        claims.put("iat", System.currentTimeMillis());
 
         return new JwtToken(Jwts.builder().claims(claims)
                 .subject(userDetails.getName()).signWith(key).compact());
@@ -91,6 +92,20 @@ public class JwtServiceImpl implements JwtService {
             return Role.USER;
 
         throw new InvalidUserException("User has no Role");
+    }
+
+    @Override
+    public String extractLogin(JwtToken jwtToken)
+    {
+        Jws<Claims> claimsJws = Jwts.parser().verifyWith(key).build().parseSignedClaims(jwtToken.getToken());
+
+        Claims claims = claimsJws.getPayload();
+        String login = claims.get("login", String.class);
+
+        if (login == null || login.isEmpty() || login.isBlank())
+            throw new InvalidUserException("User has no login");
+
+        return login;
     }
 
     private boolean verifyClaimsByLogin(Claims claims, String login)

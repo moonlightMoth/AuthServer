@@ -20,6 +20,10 @@ public class AuthorisationResponse {
     Status status;
 
     @NotNull
+    @Schema(description = "Login of user")
+    String login;
+
+    @NotNull
     @Schema(description = "Role of user")
     Role role;
 

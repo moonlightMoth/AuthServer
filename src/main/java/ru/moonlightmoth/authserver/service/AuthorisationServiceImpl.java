@@ -19,6 +19,7 @@ public class AuthorisationServiceImpl implements AuthorisationService{
 
         return AuthorisationResponse.builder()
                 .role(jwtService.extractRole(authorisationRequest.getToken()))
+                .login(jwtService.extractLogin(authorisationRequest.getToken()))
                 .status(Status.OK)
                 .message("Access granted")
                 .build();

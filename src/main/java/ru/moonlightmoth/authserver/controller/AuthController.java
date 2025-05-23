@@ -18,18 +18,10 @@ import ru.moonlightmoth.authserver.service.LogInService;
 @Validated
 @RestController
 public class AuthController {
-
-    @Autowired
-    private StubCredentialsRepository credentialsRepository;
-
     @Autowired
     private AuthorisationService authorisationService;
-
     @Autowired
     private LogInService logInService;
-
-    @Autowired
-    private JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LogInRequest logInRequest)
