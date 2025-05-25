@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN apt update
 RUN yes | apt install maven
-RUN mvn clean compile package
+RUN mvn clean compile test package
 
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
