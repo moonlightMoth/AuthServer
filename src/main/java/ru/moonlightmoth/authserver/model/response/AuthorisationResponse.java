@@ -18,24 +18,24 @@ public class AuthorisationResponse {
 
     @NotNull
     @Schema(description = "Must be 'OK' or 'FAIL'")
-    Status status;
+    private Status status;
 
     @NotNull
     @Schema(description = "Login of user")
-    String login;
+    private String login;
 
     @Size(min = 1, max = 30, message = "Invalid name length, must be from 1 to 30")
     @Schema(description = "Name")
-    String name;
+    private String name;
 
     @Size(min = 1, max = 30, message = "Invalid surname length, must be from 1 to 30")
     @Schema(description = "Surname")
-    String surname;
+    private String surname;
 
     @NotNull
     @Schema(description = "Role of user")
-    Role role;
+    private Role role;
 
     @Schema(description = "Message for clarity")
-    String message;
+    private String message;
 }

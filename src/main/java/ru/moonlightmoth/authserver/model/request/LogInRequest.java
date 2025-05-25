@@ -16,9 +16,9 @@ public class LogInRequest {
 
     @NotNull
     @Schema(description = "Login")
-    String login;
+    private String login;
 
     @NotNull
     @Schema(description = "Password")
-    String password;
+    private String password;
 }

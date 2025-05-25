@@ -3,7 +3,7 @@ package ru.moonlightmoth.authserver.controller;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.moonlightmoth.authserver.exception.InvalidUserException;
+import ru.moonlightmoth.authserver.exception.InvalidPasswordException;
 import ru.moonlightmoth.authserver.exception.NoSuchUserException;
 import ru.moonlightmoth.authserver.model.response.AuthorisationResponse;
 import ru.moonlightmoth.authserver.model.response.LogInResponse;
@@ -31,8 +31,8 @@ public class AuthExceptionHandler {
                 .build());
     }
 
-    @ExceptionHandler(InvalidUserException.class)
-    public ResponseEntity<LogInResponse> handleInvalidUserException(InvalidUserException e)
+    @ExceptionHandler(InvalidPasswordException.class)
+    public ResponseEntity<LogInResponse> handleInvalidUserException(InvalidPasswordException e)
     {
         return ResponseEntity.badRequest().body(LogInResponse.builder()
                 .status(Status.FAIL)

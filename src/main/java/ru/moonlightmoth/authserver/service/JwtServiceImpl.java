@@ -3,29 +3,19 @@ package ru.moonlightmoth.authserver.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.security.PrivateECKey;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.stereotype.Service;
-import ru.moonlightmoth.authserver.exception.InvalidUserException;
+import ru.moonlightmoth.authserver.exception.InvalidPasswordException;
 import ru.moonlightmoth.authserver.exception.NoSuchUserException;
 import ru.moonlightmoth.authserver.model.JwtToken;
-import ru.moonlightmoth.authserver.model.entity.Role;
 import ru.moonlightmoth.authserver.model.entity.UserDetails;
 import ru.moonlightmoth.authserver.repository.CredentialsRepository;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -96,18 +86,18 @@ public class JwtServiceImpl implements JwtService {
         String surname = claims.get("surname", String.class);
 
         if (login == null || login.isEmpty() || login.isBlank())
-            throw new InvalidUserException("User has no login");
+            throw new InvalidPasswordException("User has no login");
 
         if (name == null || name.isEmpty() || name.isBlank())
-            throw new InvalidUserException("User has no name");
+            throw new InvalidPasswordException("User has no name");
 
         if (surname == null || surname.isEmpty() || surname.isBlank())
-            throw new InvalidUserException("User has no surname");
+            throw new InvalidPasswordException("User has no surname");
 
         String role = claims.get("role", String.class);
 
         if (!(role.equals("ADMIN") || role.equals("USER")))
-            throw new InvalidUserException("User has no Role");
+            throw new InvalidPasswordException("User has no Role");
     }
 
     private boolean verifyClaimsByLogin(Claims claims, String login)

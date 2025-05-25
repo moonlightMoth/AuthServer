@@ -17,8 +17,8 @@ import ru.moonlightmoth.authserver.model.entity.Role;
 public class AuthorisationRequest {
     @NotNull
     @Schema(description = "JWT token", example = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cC.I6MTYyMjUwNj")
-    JwtToken token;
+    private JwtToken token;
 
     @Schema(description = "Message for clarity")
-    String message;
+    private String message;
 }

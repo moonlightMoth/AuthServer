@@ -20,25 +20,25 @@ public class LogInResponse {
 
     @NotNull
     @Schema(description = "Status field. Must be OK or FAIL")
-    Status status;
+    private Status status;
 
     @Size(min = 1, max = 30, message = "Invalid name length, must be from 1 to 30")
     @Schema(description = "Name")
-    String name;
+    private String name;
 
     @Size(min = 1, max = 30, message = "Invalid surname length, must be from 1 to 30")
     @Schema(description = "Surname")
-    String surname;
+    private String surname;
 
     @NotNull
     @Schema(description = "Role. Must be ADMIN or USER")
-    Role role;
+    private Role role;
 
     @NotNull
     @Schema(description = "JWT token to be saved on client side, may be null on status FAIL", example = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cC.I6MTYyMjUwNj")
-    JwtToken token;
+    private JwtToken token;
 
     @Schema(description = "Message for clarity")
-    String message;
+    private String message;
 
 }
