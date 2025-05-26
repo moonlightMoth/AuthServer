@@ -15,7 +15,7 @@ import ru.moonlightmoth.authserver.model.entity.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "Authorisation response")
+@Schema(description = "Login response")
 public class LogInResponse {
 
     @NotNull
