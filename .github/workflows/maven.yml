@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: moonlightmoth.ru:1917
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: keyzz-auth
   USERNAME: moonlightmoth
 
 jobs:
