@@ -1,5 +1,5 @@
 
-name: Junit tests with Maven
+name: Junit tests with Maven + docker build + push
 
 on:
   push:
@@ -43,5 +43,5 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest
            
