@@ -7,8 +7,13 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  REGISTRY: moonlightmoth.ru:1917
+  IMAGE_NAME: ${{ github.repository }}
+  USERNAME: moonlightmoth
+
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -20,3 +25,23 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean compile test
+      
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ env.USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{ IMAGE_NAME }}:latest
+           
