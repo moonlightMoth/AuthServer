@@ -51,7 +51,26 @@ docker build --tag <your_tag> .
 
 ### Usage
 
-In order to work properly keyzz-auth needs to be connected to postgresql database named `main_db` with following schema: `user_details: id (PK), name, surname, role, login (UNIQUE), password_hash`
+In order to work properly keyzz-auth needs to be connected to postgresql database named `main_db` with following schema: 
+
+```
+main_db=# \d user_details
+                                       Table "public.user_details"
+    Column     |         Type          | Collation | Nullable |                 Default
+---------------+-----------------------+-----------+----------+------------------------------------------
+ id            | integer               |           | not null | nextval('user_details_id_seq'::regclass)
+ name          | character varying(30) |           | not null |
+ surname       | character varying(30) |           | not null |
+ role          | character varying(10) |           | not null |
+ login         | character varying(30) |           | not null |
+ password_hash | character varying(64) |           | not null |
+Indexes:
+    "user_details_pkey" PRIMARY KEY, btree (id)
+    "user_details_login_key" UNIQUE CONSTRAINT, btree (login)
+Check constraints:
+    "user_details_role_check" CHECK (role::text = ANY (ARRAY['ADMIN'::character varying, 'USER'::character varying]::text[]))
+
+```
 
 Secrets management implemented using enviromental variables:
 ```
